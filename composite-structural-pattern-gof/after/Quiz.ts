@@ -1,4 +1,4 @@
-import CourseElement from "./CourseElement";
+import CourseElement from "./i-CourseElement";
 import SubQuiz from "./SubQuiz";
 
 export default class Quiz implements CourseElement {
