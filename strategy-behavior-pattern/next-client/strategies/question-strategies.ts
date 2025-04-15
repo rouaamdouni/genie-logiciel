@@ -3,8 +3,8 @@ import {
     trueFalseQuestionSchema,
     uniqueChoiceQuestionSchema,
     multipleChoiceQuestionSchema,
-    QuestionEvaluationResult
 } from "@/types/question-strategy";
+import { z } from "zod"
 import { validateQuestion } from "@/services/question-service";
 
 export const QuestionStrategies = {
