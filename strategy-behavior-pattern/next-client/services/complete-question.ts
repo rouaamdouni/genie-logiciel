@@ -1,22 +1,32 @@
-// services/question-service.ts
 import { headers } from "next/headers";
 import { apiBaseUrl } from "@/utils/constants";
-import {
-    QuestionType,
-    QuestionEvaluationResult,
-} from "@/types/question-strategy";
+import { QuestionEvaluationResult } from "@/types/question-strategy";
+
+// Define a mapping of question types to strategy types, matching your backend logic
+const questionStrategyMap = {
+    'true-false': 'true-false',
+    'multiple-choice': 'multiple-choice',
+    'unique-choice': 'unique-choice',
+};
 
 export async function validateQuestion<T>(
-    questionType: QuestionType,
+    questionId: string, // Using questionId as passed from the front-end
     args: {
         pathId: string;
         quizId: string;
-        questionId: string;
         studentResponse: T;
         userId: string;
+        maxScore: number;
     }
 ): Promise<QuestionEvaluationResult<T>> {
-    const url = `${apiBaseUrl}/questions/${questionType}/${args.pathId}/${args.quizId}/${args.questionId}/completed`;
+    const strategy = questionStrategyMap[questionId];
+
+    if (!strategy) {
+        throw new Error(`No strategy found for questionId: ${questionId}`);
+    }
+
+    const url = `${apiBaseUrl}/quiz/${strategy}/evaluate`;
+
     const authHeader = headers().get("Authorization") ?? "";
 
     try {
@@ -28,9 +38,11 @@ export async function validateQuestion<T>(
             },
             body: JSON.stringify({
                 studentResponse: args.studentResponse,
-                userId: args.userId
+                correctAnswer: args.correctAnswer,
+                maxScore: args.maxScore,
             }),
         });
+
         return await response.json();
     } catch (error) {
         return {
