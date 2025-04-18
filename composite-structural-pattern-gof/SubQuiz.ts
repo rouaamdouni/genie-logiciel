@@ -1,4 +1,4 @@
-import CourseElement from "./i-CourseElement";
+import CourseElement from "./interfaces/i-CourseElement";
 
 export default abstract class SubQuiz implements CourseElement {
     constructor(

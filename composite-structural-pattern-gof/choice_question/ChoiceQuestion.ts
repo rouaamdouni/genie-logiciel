@@ -1,10 +1,11 @@
-import Hint from "./Hint";
-import SubQuiz from "./SubQuiz";
+import Hint from "../hint/Hint";
+import SubQuiz from "../SubQuiz";
 
-export default class TrueFalseQuestion extends SubQuiz {
+export default class ChoiceQuestion extends SubQuiz {
     constructor(      
         public headline: string,
-        public idealOption: boolean,
+        public options: Array<string>,
+        public correctOptions: Array<number>,
         public correctAnswerFeedback: string,
         public wrongAnswerFeedback: string,
         public hints: Array<Hint>,
@@ -17,6 +18,7 @@ export default class TrueFalseQuestion extends SubQuiz {
 
     public show() {
         console.log("Headline", this.headline);
-        console.log("Ideal option", this.idealOption);
+        console.log("Options", this.options);
+        console.log("Correct options", this.correctOptions);
     }
 }

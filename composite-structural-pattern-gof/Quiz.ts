@@ -1,6 +1,8 @@
-import CourseElement from "./i-CourseElement";
+import CourseElement from "./interfaces/i-CourseElement";
 import SubQuiz from "./SubQuiz";
+import {  Injectable } from "@nestjs/common"
 
+@Injectable()
 export default class Quiz implements CourseElement {
     private subQuizzes: Array<SubQuiz>
     public questionsCount: number;
@@ -80,5 +82,16 @@ export default class Quiz implements CourseElement {
 
     difficulty = Math.round(difficulty / this.subQuizzes.length);
     this.difficulty = difficulty;
+  }
+  getSummary() {
+    return {
+      quizId: this.quizId,
+      slug: this.slug,
+      label: this.label,
+      questionsCount: this.questionsCount,
+      totalTime: this.totalTime,
+      score: this.score,
+      difficulty: this.difficulty,
+    };
   }
 }
