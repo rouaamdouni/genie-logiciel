@@ -1,5 +1,7 @@
 // services/error.service.ts
-import { InvalidCredentials, UserAlreadyExist } from "../types/errors";
+
+import { InvalidCredentials, UserAlreadyExist, UserNotFound } from "../../utils/types";
+
 
 export class ErrorService {
   static invalidCredentials(): InvalidCredentials {
@@ -18,9 +20,9 @@ export class ErrorService {
     };
   }
 
-  static userNotFound(): UserAlreadyExist {
+  static userNotFound(): UserNotFound {
     return {
-      code: "taken_credentials",
+      code: "user_not_found",
       message: "User not found",
       status: 404,
     };

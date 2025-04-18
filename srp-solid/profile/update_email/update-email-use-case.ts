@@ -5,7 +5,7 @@ import { IHash } from "../../utils/hashing";
 import { Left, Right } from "../../utils/either";
 import { UserService } from "../user.service";
 import { ErrorService } from "../error/error.service";
-import { InvalidCredentials, UserAlreadyExist } from "../error/error";
+import { InvalidCredentials, UserNotFound } from "../../utils/types";
 
 @Injectable()
 export class UpdateEmailUseCase implements IUpdateEmailUseCase {
@@ -18,11 +18,11 @@ export class UpdateEmailUseCase implements IUpdateEmailUseCase {
   async execute(args: UpdateEmailArgs): Promise<UpdateEmailResult> {
     const existingUser = await this.userService.getUserById(args.userId);
     if (!existingUser) 
-      return Left.create(ErrorService.userNotFound() as UserAlreadyExist);  
+      return Left.create(ErrorService.userNotFound());  
 
     const isValidPassword = await this.hashService.compare(args.userPassword, existingUser.password);
     if (!isValidPassword)  
-      return Left.create(ErrorService.invalidCredentials() as InvalidCredentials);  
+      return Left.create(ErrorService.invalidCredentials());  
 
     existingUser.email = args.newEmail;
     existingUser.updatedAt = new Date();

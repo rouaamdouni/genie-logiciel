@@ -353,3 +353,5 @@ export type UserNotFound = {
   message: string
   status: HttpStatus.NOT_FOUND
 }
+  export type ErrorResponse = InvalidCredentials | UserAlreadyExist | UserNotFound;
+

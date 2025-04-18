@@ -1,5 +1,5 @@
 import { Either } from "../../utils/either"
-import { InvalidCredentials, SuccessMessage, UserAlreadyExist } from "../../utils/types"
+import { InvalidCredentials, SuccessMessage, UserAlreadyExist, UserNotFound } from "../../utils/types"
 
 
 export interface IUpdateEmailUseCase {
@@ -13,6 +13,6 @@ export type UpdateEmailArgs = {
 }
 
 export type UpdateEmailResult = Either<
-  InvalidCredentials | UserAlreadyExist,
+  InvalidCredentials | UserAlreadyExist | UserNotFound,
   SuccessMessage
 >
