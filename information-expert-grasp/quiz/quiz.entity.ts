@@ -21,11 +21,6 @@ export class Quiz implements IQuiz {
         this.recalculateStats();
     }
 
-    loadSubQuizzes(subQuizzes: SubQuiz[]): void {
-        this.subQuizzes = subQuizzes;
-        this.recalculateStats();
-    }
-
     completeSubQuiz(questionId: string, response: unknown): boolean {
         const subQuiz = this.subQuizzes.find(sq => sq.questionId === questionId);
 
@@ -72,17 +67,5 @@ export class Quiz implements IQuiz {
 
     getCompletedSubQuizzes(): ReadonlyArray<SubQuiz> {
         return this.subQuizzes.filter(sq => sq.isCompleted);
-    }
-
-    delete(): void {
-        this.isDeleted = true;
-        this.deletedAt = new Date();
-        this.updatedAt = new Date();
-    }
-
-    restore(): void {
-        this.isDeleted = false;
-        this.deletedAt = undefined;
-        this.updatedAt = new Date();
     }
 }

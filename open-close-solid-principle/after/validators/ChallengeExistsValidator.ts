@@ -1,4 +1,4 @@
-import { Inject, Injectable, HttpStatus } from "@nestjs/common"
+import { Injectable, HttpStatus } from "@nestjs/common"
 import { Repos } from "../../../utils/constants"
 import { IChallengeRepo } from "../../challenge/config/i-challenge.repo"
 import { IRateValidator } from "./interfaces/IRateValidator"
