@@ -1,11 +1,11 @@
 import { Inject, Injectable, HttpStatus } from "@nestjs/common"
 import { IAffectRepo } from "../../affect/config/i-affect.repo"
 import { RateRewardArgs } from "./i-rate-reward-use-case"
-import { IRateValidator } from "../interfaces/i-rate-validator"
+import { IValidator } from "../interfaces/i-rate-validator"
 import { Left, Right } from "../../../utils/either"
 
 @Injectable()
-export class InstructorIsAffectedValidator implements IRateValidator<RateRewardArgs> {
+export class InstructorIsAffectedValidator implements IValidator<RateRewardArgs> {
     constructor(@Inject("AffectRepo") private readonly affectRepo: IAffectRepo) { }
 
     async validate(args: RateRewardArgs) {

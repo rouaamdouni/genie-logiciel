@@ -6,7 +6,7 @@ import {
   RateCheckpointArgs,
   RateCheckpointResult,
 } from "./i-rate-checkpoint-use-case"
-import { IRateValidator } from "../interfaces/IRateValidator"
+import { IValidator } from "../interfaces/IValidator"
 import { ICompletedCheckpointRepo } from "../../completed_checkpoint/config/i-completed-checkpoint.repo"
 import { ICompletedNodeRepo } from "../../completed_node/config/i-completed-node.repo"
 import { INodeCompletedEvent } from "../../completed_node/node_completed/node-completed.event"
@@ -15,7 +15,7 @@ import { INodeCompletedEvent } from "../../completed_node/node_completed/node-co
 export class RateCheckpointUseCase implements IRateCheckpointUseCase {
   constructor(
     @Inject(Repos.RateCheckpointValidators)
-    private readonly validators: IRateValidator<RateCheckpointArgs>[],
+    private readonly validators: IValidator<RateCheckpointArgs>[],
 
     @Inject(Repos.completedCheckpoint)
     private readonly completedCheckpointRepo: ICompletedCheckpointRepo,

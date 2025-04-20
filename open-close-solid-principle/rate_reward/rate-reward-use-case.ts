@@ -6,7 +6,7 @@ import { ICompletedNodeRepo } from "../../completed_node/config/i-completed-node
 import { INodeCompletedEvent } from "../../completed_node/node_completed/node-completed.event"
 import { ICompletedRewardRepo } from "../../completed_reward/config/i-completed-reward.repo"
 import { IRewardRepo } from "../../reward/config/i-reward.repo"
-import { IRateValidator } from "../interfaces/IRateValidator"
+import { IValidator } from "../interfaces/IValidator"
 import {
   IRateRewardUseCase,
   RateRewardArgs,
@@ -17,7 +17,7 @@ import {
 export class RateRewardUseCase implements IRateRewardUseCase {
   constructor(
     @Inject(Repos.RateRewardValidators)
-    private readonly validators: IRateValidator<RateRewardArgs>[],
+    private readonly validators: IValidator<RateRewardArgs>[],
 
     @Inject(Repos.reward) private readonly rewardRepo: IRewardRepo,
     @Inject(Repos.completedReward) private readonly completedRewardRepo: ICompletedRewardRepo,

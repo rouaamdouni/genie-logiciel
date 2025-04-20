@@ -1,11 +1,11 @@
 import { Inject, Injectable, HttpStatus } from "@nestjs/common"
 import { IEnrolledPathRepo } from "../../enrolled_path/config/i-enrolled-path.repo"
 import { RateRewardArgs } from "./i-rate-reward-use-case"
-import { IRateValidator } from "../interfaces/i-rate-validator"
+import { IValidator } from "../interfaces/i-rate-validator"
 import { Left, Right } from "../../../utils/either"
 
 @Injectable()
-export class StudentIsEnrolledValidator implements IRateValidator<RateRewardArgs> {
+export class StudentIsEnrolledValidator implements IValidator<RateRewardArgs> {
     constructor(@Inject("EnrolledPathRepo") private readonly enrolledPathRepo: IEnrolledPathRepo) { }
 
     async validate(args: RateRewardArgs) {

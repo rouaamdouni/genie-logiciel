@@ -1,12 +1,12 @@
 import { Injectable, HttpStatus } from "@nestjs/common"
 import { Repos } from "../../../utils/constants"
 import { IChallengeRepo } from "../../challenge/config/i-challenge.repo"
-import { IRateValidator } from "./interfaces/IRateValidator"
+import { IValidator } from "./interfaces/IValidator"
 import { Left, Right } from "../../../utils/either"
 import { RateChallengeArgs } from "./i-rate-challenge-use-case"
 
 @Injectable()
-export class ChallengeExistsValidator implements IRateValidator<RateChallengeArgs> {
+export class ChallengeExistsValidator implements IValidator<RateChallengeArgs> {
     constructor(
         @Inject(Repos.challenge)
         private readonly challengeRepo: IChallengeRepo,

@@ -7,7 +7,7 @@ import {
   RateChallengeArgs,
   RateChallengeResult,
 } from "./i-rate-challenge-use-case"
-import { IRateValidator } from "../interfaces/IRateValidator"
+import { IValidator } from "../interfaces/IValidator"
 import { IEnrolledChallengeRepo } from "../../enrolled_challenge/config/i-enrolled-challenge.repo"
 import { IStatisticsRepo } from "../../statistics/config/i-statistics.repo"
 
@@ -15,7 +15,7 @@ import { IStatisticsRepo } from "../../statistics/config/i-statistics.repo"
 export class RateChallengeUseCase implements IRateChallengeUseCase {
   constructor(
     @Inject(Repos.RateChallengeValidators)
-    private readonly validators: IRateValidator<RateChallengeArgs>[],
+    private readonly validators: IValidator<RateChallengeArgs>[],
 
     @Inject(Repos.enrolledChallenge)
     private readonly enrolledChallengeRepo: IEnrolledChallengeRepo,

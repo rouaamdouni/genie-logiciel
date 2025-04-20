@@ -1,12 +1,12 @@
 import { Inject, Injectable, HttpStatus } from "@nestjs/common"
 import { Repos } from "../../../utils/constants"
 import { IPathItemRepo } from "../../path_item/config/i-path-item.repo"
-import { IRateValidator } from "./interfaces/IRateValidator"
+import { IValidator } from "./interfaces/IValidator"
 import { Left, Right } from "../../../utils/either"
 import { RateRewardArgs } from "../i-rate-reward-use-case"
 
 @Injectable()
-export class RewardInPathValidator implements IRateValidator<RateRewardArgs> {
+export class RewardInPathValidator implements IValidator<RateRewardArgs> {
     constructor(
         @Inject(Repos.pathItem)
         private readonly pathItemRepo: IPathItemRepo,

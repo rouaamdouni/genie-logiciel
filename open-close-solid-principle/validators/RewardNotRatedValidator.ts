@@ -1,12 +1,12 @@
 import { Inject, Injectable, HttpStatus } from "@nestjs/common"
 import { Repos } from "../../../utils/constants"
 import { ICompletedRewardRepo } from "../../completed_reward/config/i-completed-reward.repo"
-import { IRateValidator } from "./interfaces/IRateValidator"
+import { IValidator } from "./interfaces/IValidator"
 import { Left, Right } from "../../../utils/either"
 import { RateRewardArgs } from "../i-rate-reward-use-case"
 
 @Injectable()
-export class RewardNotRatedValidator implements IRateValidator<RateRewardArgs> {
+export class RewardNotRatedValidator implements IValidator<RateRewardArgs> {
     constructor(
         @Inject(Repos.completedReward)
         private readonly completedRewardRepo: ICompletedRewardRepo,
