@@ -1,4 +1,4 @@
-import { Position } from "./utils/types";
+import { Position } from "../utils/types";
 
 export enum TEntity {
   checkpoints = "checkpoints",

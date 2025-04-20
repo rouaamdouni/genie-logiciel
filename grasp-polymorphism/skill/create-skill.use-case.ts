@@ -1,8 +1,8 @@
 // use-cases/create-skill.use-case.ts
 import { Injectable } from "@nestjs/common"
 import { BaseCreateEntityUseCase } from "../base-create-entity.use-case"
-import { Skill } from "../skill.domain"
-import { CreateSkillArgs, CreateSkillResult } from "../i-create-skill-args"
+import { Skill } from "../skill//skill.domain"
+import { CreateSkillArgs, CreateSkillResult } from "../skill/i-create-skill-args"
 import { TEntity } from "../utils/entity"
 import { defaultSkillDifficulty, defaultSkillScore } from "../utils/constants"
 

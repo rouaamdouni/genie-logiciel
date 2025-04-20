@@ -1,4 +1,4 @@
-import { TEntity } from "../graph.domain"
+import { TEntity } from "../utils/entity"
 import { PathItem } from "./path-item.domain"
 
 export type GetPathItemArgs = {

@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { BaseCreateEntityUseCase } from "../base-create-entity.use-case";
-import { Quiz } from "../quiz.domain";
-import { CreateQuizArgs, CreateQuizResult } from "./interfaces/i-create-quiz-use-case";
+import { Quiz } from "../quiz/quiz.domain";
+import { CreateQuizArgs, CreateQuizResult } from "../quiz/i-create-quiz-use-case";
 import { TEntity } from "../utils/entity";
 
 @Injectable()

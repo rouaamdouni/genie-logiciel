@@ -1,8 +1,8 @@
 // use-cases/create-super-skill.use-case.ts
 import { Injectable } from "@nestjs/common"
 import { BaseCreateEntityUseCase } from "../base-create-entity.use-case"
-import { SuperSkill } from "../super-skill.domain"
-import { CreateSuperSkillArgs, CreateSuperSkillResult } from "../i-create-super-skill-use-case"
+import { SuperSkill } from "../super_skill/super-skill.domain"
+import { CreateSuperSkillArgs, CreateSuperSkillResult } from "../super_skill/i-create-super-skill-use-case"
 import { TEntity } from "../utils/entity"
 import { defaultSuperSkillDifficulty, defaultSuperSkillScore } from "../utils/constants"
 

@@ -3,15 +3,15 @@ import { HttpStatus, Inject, Injectable } from "@nestjs/common"
 import {
   CreatePathItemArgs,
   CreatePathItemResult,
-} from "../i-create-path-item-use-case"
+} from "../path_item/i-create-path-item-use-case"
 import { TEntity } from "../utils/entity"
-import { Path } from "../path.domain"
 import { Repos } from "../utils/constants"
-import { IPathItemRepo } from "../i-path-item.repo"
-import { IPathRepo } from "../i-path.repo"
-import { IGraphRepo } from "../i-graph.repo"
 import { Left, Right } from "../utils/either"
 import { generateId } from "../utils/generate-id"
+import { Path } from "../path/path.domain"
+import { IGraphRepo } from "../graph/i-graph.repo"
+import { IPathRepo } from "../path/i-path.repo"
+import { IPathItemRepo } from "./i-path-item.repo"
 
 const entityCounters: Record<TEntity, keyof Path> = {
   skills: "skillsCount",

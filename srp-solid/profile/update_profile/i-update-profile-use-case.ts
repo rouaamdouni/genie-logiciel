@@ -1,5 +1,5 @@
-import { Either } from "../../../polymorphism-grasp/utils/either"
-import { SuccessMessage, UserNotFound } from "../../../polymorphism-grasp/utils/types"
+import { Either } from "../../utils/either"
+import { SuccessMessage, UserNotFound } from "../../utils/types"
 
 export interface IUpdateProfileUseCase {
   execute(args: UpdateProfileArgs): Promise<UpdateProfileResult>

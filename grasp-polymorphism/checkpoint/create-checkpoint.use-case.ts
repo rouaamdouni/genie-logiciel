@@ -2,7 +2,7 @@
 import { Injectable } from "@nestjs/common";
 import { BaseCreateEntityUseCase } from "../base-create-entity.use-case";
 import { Checkpoint } from "./checkpoint.domain";
-import { CreateCheckpointArgs, CreateCheckpointResult } from "../i-create-checkpoint-use-case";
+import { CreateCheckpointArgs, CreateCheckpointResult } from "../checkpoint/i-create-checkpoint-use-case";
 import { TEntity } from "../utils/entity";
 import { defaultCheckpointDifficulty, defaultCheckpointScore } from "../utils/constants";
 
