@@ -1,11 +1,10 @@
-import { HttpStatus, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { IUpdateEmailUseCase, UpdateEmailArgs, UpdateEmailResult } from "./i-update-email-use-case";
-import { NotificationService } from "./notification.service";
 import { IHash } from "../../utils/hashing";
 import { Left, Right } from "../../utils/either";
 import { UserService } from "../user.service";
 import { ErrorService } from "../error/error.service";
-import { InvalidCredentials, UserNotFound } from "../../utils/types";
+import { NotificationService } from "../../notification.service";
 
 @Injectable()
 export class UpdateEmailUseCase implements IUpdateEmailUseCase {

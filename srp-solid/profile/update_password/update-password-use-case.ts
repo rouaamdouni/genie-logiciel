@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { IUpdatePasswordUseCase, UpdatePasswordArgs, UpdatePasswordResult } from "./i-update-password-use-case";
 import { PasswordService } from "./password.service";
-import { NotificationService } from "./notification.service";
 import { Left, Right } from "../../utils/either";
 import { UserService } from "../user.service";
 import { ErrorService } from "../error/error.service";
+import { NotificationService } from "../../notification.service";
 
 @Injectable()
 export class UpdatePasswordUseCase implements IUpdatePasswordUseCase {

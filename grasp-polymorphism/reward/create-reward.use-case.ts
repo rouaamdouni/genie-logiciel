@@ -1,13 +1,13 @@
 // create-reward.use-case.ts
 import { Injectable } from "@nestjs/common";
-import { BaseCreateEntityUseCase } from "../base-create-entity.use-case";
+import { BaseCreateEntity } from "../base-create-entity.use-case";
 import { Reward } from "../reward/reward.domain";
 import { CreateRewardArgs, CreateRewardResult } from "../reward/i-create-reward-use-case";
 import { TEntity } from "../utils/entity";
 import { defaultRewardDifficulty, defaultRewardScore } from "../utils/constants";
 
 @Injectable()
-export class CreateRewardUseCase extends BaseCreateEntityUseCase<
+export class CreateRewardUseCase extends BaseCreateEntity<
   Reward,
   CreateRewardArgs,
   CreateRewardResult

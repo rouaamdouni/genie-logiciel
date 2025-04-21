@@ -218,6 +218,11 @@ export type PathNotFound = {
   message: string
   status: HttpStatus.NOT_FOUND
 }
+export type InvalidEntityType = {
+  code: "invalid_entity_type"
+  message: string
+  status: HttpStatus.NOT_FOUND
+}
 
 export interface Position {
   x: number

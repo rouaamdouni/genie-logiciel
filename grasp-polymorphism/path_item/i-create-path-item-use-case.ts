@@ -1,5 +1,5 @@
 import { HttpStatus } from "@nestjs/common"
-import { PathNotFound, SuccessMessage } from "../utils/types"
+import { InvalidEntityType, PathNotFound, SuccessMessage } from "../utils/types"
 import { Either } from "../utils/either"
 
 
@@ -9,7 +9,7 @@ export type CreatePathItemArgs = {
 }
 
 export type CreatePathItemResult = Either<
-  EntityNotFound | PathItemExists | PathNotFound,
+  EntityNotFound | PathItemExists | PathNotFound | InvalidEntityType,
   SuccessMessage
 >
 

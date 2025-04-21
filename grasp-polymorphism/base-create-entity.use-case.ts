@@ -7,7 +7,7 @@ import { Right } from "./utils/either"
 import { Position } from "./utils/types"
 
 @Injectable()
-export abstract class BaseCreateEntityUseCase<
+export abstract class BaseCreateEntity<
   Entity extends { [key: string]: any },
   Args extends {
     position?: Position

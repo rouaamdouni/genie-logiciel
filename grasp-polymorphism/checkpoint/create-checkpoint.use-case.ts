@@ -1,13 +1,13 @@
 // create-checkpoint.use-case.ts
 import { Injectable } from "@nestjs/common";
-import { BaseCreateEntityUseCase } from "../base-create-entity.use-case";
+import { BaseCreateEntity } from "../base-create-entity.use-case";
 import { Checkpoint } from "./checkpoint.domain";
 import { CreateCheckpointArgs, CreateCheckpointResult } from "../checkpoint/i-create-checkpoint-use-case";
 import { TEntity } from "../utils/entity";
 import { defaultCheckpointDifficulty, defaultCheckpointScore } from "../utils/constants";
 
 @Injectable()
-export class CreateCheckpointUseCase extends BaseCreateEntityUseCase<
+export class CreateCheckpointUseCase extends BaseCreateEntity<
   Checkpoint,
   CreateCheckpointArgs,
   CreateCheckpointResult

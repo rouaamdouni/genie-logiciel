@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
-import { BaseCreateEntityUseCase } from "../base-create-entity.use-case";
+import { BaseCreateEntity } from "../base-create-entity.use-case";
 import { Quiz } from "../quiz/quiz.domain";
 import { CreateQuizArgs, CreateQuizResult } from "../quiz/i-create-quiz-use-case";
 import { TEntity } from "../utils/entity";
 
 @Injectable()
-export class CreateQuizUseCase extends BaseCreateEntityUseCase<
+export class CreateQuizUseCase extends BaseCreateEntity<
   Quiz,
   CreateQuizArgs,
   CreateQuizResult
