@@ -10,15 +10,8 @@ import { StatisticsModule } from "../../statistics/statistics.module"
 import { UserModule } from "../../user/user.module"
 import { RateChallengeController } from "./rate-challenge.controller"
 import { RateChallengeUseCase } from "./rate-challenge-use-case"
+import { RateChallengeValidatorsProvider } from "./rate-challenge-validators.provider"
 import { Repos } from "../utils/constants"
-import {
-  ChallengeExistsValidator,
-  StudentExistsValidator,
-  StudentIsEnrolledValidator,
-  InstructorIsAffectedValidator,
-  ChallengeNotRatedValidator
-}
-  from "../validators/index"
 @Module({
   controllers: [RateChallengeController],
   imports: [
@@ -29,37 +22,13 @@ import {
     StatisticsModule,
   ],
   providers: [
-    //  Group all validators into a single array and bind it to the token
+    RateChallengeValidatorsProvider,
     {
       provide: Repos.RateChallengeValidators,
-      useFactory: (
-        studentValidator: StudentExistsValidator,
-        enrolledValidator: StudentIsEnrolledValidator,
-        challengeValidator: ChallengeExistsValidator,
-        notRatedValidator: ChallengeNotRatedValidator,
-        instructorValidator: InstructorIsAffectedValidator,
-      ) => [studentValidator,
-          enrolledValidator,
-          challengeValidator,
-          notRatedValidator,
-          instructorValidator,],
-      inject: [
-        StudentExistsValidator,
-        StudentIsEnrolledValidator,
-        ChallengeExistsValidator,
-        ChallengeNotRatedValidator,
-        InstructorIsAffectedValidator,
-      ],
+      useFactory: (provider: RateChallengeValidatorsProvider) =>
+        provider.getValidators(),
+      inject: [RateChallengeValidatorsProvider],
     },
-
-    // ✅ Register each validator class as a provider
-    StudentExistsValidator,
-    StudentIsEnrolledValidator,
-    ChallengeExistsValidator,
-    ChallengeNotRatedValidator,
-    InstructorIsAffectedValidator,
-
-    // ✅ Register the Use Case
     {
       provide: UseCases.rateChallenge,
       useClass: RateChallengeUseCase,

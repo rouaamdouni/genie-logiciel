@@ -5,8 +5,7 @@ import { Right } from "../../../utils/either"
 import { ICompletedNodeRepo } from "../../completed_node/config/i-completed-node.repo"
 import { INodeCompletedEvent } from "../../completed_node/node_completed/node-completed.event"
 import { ICompletedRewardRepo } from "../../completed_reward/config/i-completed-reward.repo"
-import { IRewardRepo } from "../../reward/config/i-reward.repo"
-import { IValidator } from "../interfaces/IValidator"
+import { IValidator } from "../interfaces/IRateValidator"
 import {
   IRateRewardUseCase,
   RateRewardArgs,
@@ -16,10 +15,10 @@ import {
 @Injectable()
 export class RateRewardUseCase implements IRateRewardUseCase {
   constructor(
+    //RateRewardUseCase injection
     @Inject(Repos.RateRewardValidators)
     private readonly validators: IValidator<RateRewardArgs>[],
 
-    @Inject(Repos.reward) private readonly rewardRepo: IRewardRepo,
     @Inject(Repos.completedReward) private readonly completedRewardRepo: ICompletedRewardRepo,
     @Inject(Repos.completedNode) private readonly completedNodeRepo: ICompletedNodeRepo,
     @Inject(Events.completedNode) private readonly completedNodeEvent: INodeCompletedEvent,
