@@ -6,7 +6,7 @@ export class UniqueChoiceQuestion extends SubQuiz {
         headline: string,
         public readonly options: string[],
         public readonly idealOption: number,
-        public readonly requiredScore: number = 1, // Default to 1 point
+        public readonly requiredScore: number,
         isDeleted: boolean = false,
         createdAt: Date = new Date(),
         updatedAt: Date = new Date(),
@@ -21,10 +21,6 @@ export class UniqueChoiceQuestion extends SubQuiz {
             updatedAt,
             deletedAt
         );
-    }
-
-    getMaxScore(): number {
-        return this.requiredScore;
     }
 
     protected calculateScore(response: unknown): number {

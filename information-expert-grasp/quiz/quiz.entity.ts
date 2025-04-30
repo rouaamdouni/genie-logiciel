@@ -2,10 +2,12 @@ import { SubQuiz } from "../sub_quiz/sub-quiz.entity";
 import { IQuiz } from './quiz.interface';
 
 export class Quiz implements IQuiz {
-    private subQuizzes: SubQuiz[] = [];
-    private _score: number = 0;
-    private _subQuizzesCount: number = 0;
-    private _completedCount: number = 0;
+    private readonly subQuizzes: SubQuiz[] = [];
+    private score: number = 0;
+    private subQuizzesCount: number = 0;
+    private completedCount: number = 0;
+    private isCompleted: boolean = false;
+    private completedAt?: Date;
 
     constructor(
         public readonly quizId: string,
@@ -14,48 +16,72 @@ export class Quiz implements IQuiz {
         public readonly createdAt: Date = new Date(),
         public updatedAt: Date = new Date(),
         public deletedAt?: Date
-    ) { }
+    ) {
+        this.isCompleted = false;
+        this.score = 0;
+        this.subQuizzesCount = 0;
+        this.completedCount = 0;
+        this.completedAt = new Date();
+    }
 
     addSubQuiz(subQuiz: SubQuiz): void {
         this.subQuizzes.push(subQuiz);
         this.recalculateStats();
     }
 
-    completeSubQuiz(questionId: string, response: unknown): boolean {
-        const subQuiz = this.subQuizzes.find(sq => sq.questionId === questionId);
-
-        if (!subQuiz || subQuiz.isCompleted) {
-            return false;
+    completeQuiz(): void {
+        if (this.isCompleted) {
+            console.log(`Quiz ${this.quizId} is already completed.`);
+            return;
         }
 
-        subQuiz.completeSubQuiz(response);
+        const allCompleted = this.subQuizzes.every(subQuiz => subQuiz.getCompletationStatus());
+
         this.recalculateStats();
-        return true;
+
+        if (!allCompleted) {
+            console.log(`Quiz ${this.quizId} cannot be completed: some sub-quizzes are still incomplete.`);
+            return;
+        }
+
+        this.isCompleted = true;
+        this.completedAt = new Date();
+        this.updatedAt = new Date();
+        console.log(`Quiz ${this.quizId} is now marked as completed.`);
     }
 
-    private recalculateStats(): void {
-        this._score = this.subQuizzes
-            .filter(sq => sq.isCompleted)
-            .reduce((sum, sq) => sum + sq.studentScore, 0);
 
-        this._subQuizzesCount = this.subQuizzes.length;
-        this._completedCount = this.subQuizzes.filter(sq => sq.isCompleted).length;
+    private recalculateStats(): void {
+        let totalScore = 0;
+        let completed = 0;
+
+        for (const subQuiz of this.subQuizzes) {
+            const score = subQuiz.getScore();
+            if (score > 0) {
+                completed++;
+                totalScore += score;
+            }
+        }
+
+        this.score = totalScore;
+        this.completedCount = completed;
+        this.subQuizzesCount = this.subQuizzes.length;
         this.updatedAt = new Date();
     }
 
-    get score(): number {
-        return this._score;
+    getTotalScore(): number {
+        return this.score;
     }
 
-    get subQuizzesCount(): number {
-        return this._subQuizzesCount;
+    getsubQuizzesCount(): number {
+        return this.subQuizzesCount;
     }
 
-    get completedCount(): number {
-        return this._completedCount;
+    getcompletedCount(): number {
+        return this.completedCount;
     }
 
-    get completionPercentage(): number {
+    getcompletionPercentage(): number {
         return this.subQuizzesCount > 0
             ? Math.round((this.completedCount / this.subQuizzesCount) * 100)
             : 0;
@@ -66,6 +92,6 @@ export class Quiz implements IQuiz {
     }
 
     getCompletedSubQuizzes(): ReadonlyArray<SubQuiz> {
-        return this.subQuizzes.filter(sq => sq.isCompleted);
+        return this.subQuizzes.filter(subQuiz => subQuiz.getCompletationStatus());
     }
 }

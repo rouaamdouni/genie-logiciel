@@ -2,10 +2,10 @@ import { ISubQuiz, SubQuizType } from './sub-quiz.interface';
 
 export abstract class SubQuiz implements ISubQuiz {
     public studentScore: number = 0;
-    public studentResponse?: unknown;
+    public studentResponse?: any;
     public completedAt?: Date;
     public isCompleted: boolean = false;
-    public idealOption?: unknown;
+    public idealOption?: any;
 
     constructor(
         public readonly questionId: string,
@@ -17,13 +17,20 @@ export abstract class SubQuiz implements ISubQuiz {
         public deletedAt?: Date
     ) { }
 
-    completeSubQuiz(response: unknown): void {
+    getCompletationStatus() {
+        return this.isCompleted;
+    }
+
+
+    completeSubQuiz(response: any): void {
         this.studentResponse = response;
         this.studentScore = this.calculateScore(response);
         this.completedAt = new Date();
         this.isCompleted = true;
         this.updatedAt = new Date();
     }
-    abstract getMaxScore(): number;
-    protected abstract calculateScore(response: unknown): number;
+    getScore(): number {
+        return this.isCompleted ? this.studentScore : 0;
+    }
+    protected abstract calculateScore(response: any): number;
 }

@@ -6,7 +6,7 @@ export class MultipleChoiceQuestion extends SubQuiz {
         questionId: string,
         headline: string,
         public readonly requiredScore: number,
-        public readonly allowPartialCredit: boolean = false,
+        public readonly allowPartialCredit: boolean,
         public readonly options: string[],
         public readonly idealOptions: number[],
         isDeleted: boolean = false,
@@ -25,11 +25,7 @@ export class MultipleChoiceQuestion extends SubQuiz {
         );
     }
 
-    getMaxScore(): number {
-        return this.requiredScore;
-    }
-
-    protected calculateScore(response: unknown): number {
+    protected calculateScore(response: any): number {
         if (!Array.isArray(response)) return 0;
 
         const correctSelections = response.filter(index =>
