@@ -3,8 +3,9 @@ import { IUpdatePasswordUseCase, UpdatePasswordArgs, UpdatePasswordResult } from
 import { PasswordService } from "./password.service";
 import { Left, Right } from "../../utils/either";
 import { UserService } from "../user.service";
-import { ErrorService } from "../error/error.service";
 import { NotificationService } from "../../notification.service";
+import { ProfileErrorService } from "../error/ProfileError.service";
+import { AuthenticationErrorService } from "../error/AuthenticationError.service";
 
 @Injectable()
 export class UpdatePasswordUseCase implements IUpdatePasswordUseCase {
@@ -17,12 +18,12 @@ export class UpdatePasswordUseCase implements IUpdatePasswordUseCase {
   async execute(args: UpdatePasswordArgs): Promise<UpdatePasswordResult> {
     const existingUser = await this.userService.getUserById(args.userId);
     if (!existingUser) {
-      return Left.create(ErrorService.userNotFound());
+      return Left.create(ProfileErrorService.userNotFound());
     }
 
     const isValidPassword = await this.passwordService.comparePasswords(args.userPassword, existingUser.password);
     if (!isValidPassword) {
-      return Left.create(ErrorService.invalidCredentials());
+      return Left.create(AuthenticationErrorService.invalidCredentials());
     }
 
     const hashedPassword = await this.passwordService.hashPassword(args.newPassword);

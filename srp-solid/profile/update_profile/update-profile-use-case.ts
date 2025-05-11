@@ -1,8 +1,8 @@
 import {  Injectable } from "@nestjs/common";
 import { IUpdateProfileUseCase, UpdateProfileArgs, UpdateProfileResult } from "./i-update-profile-use-case";
 import { Left, Right } from "../../utils/either";
-import { ErrorService } from "../error/error.service";
 import { UserService } from "../user.service";
+import { ProfileErrorService } from "../error/ProfileError.service";
 
 @Injectable()
 export class UpdateProfileUseCase implements IUpdateProfileUseCase {
@@ -11,7 +11,7 @@ export class UpdateProfileUseCase implements IUpdateProfileUseCase {
   async execute(args: UpdateProfileArgs): Promise<UpdateProfileResult> {
     const existingUser = await this.userService.getUserById(args.userId);
     if (!existingUser) {
-      return Left.create(ErrorService.userNotFound());
+      return Left.create(ProfileErrorService.userNotFound());
     }
 
     existingUser.updatedAt = new Date();

@@ -3,8 +3,9 @@ import { IUpdateEmailUseCase, UpdateEmailArgs, UpdateEmailResult } from "./i-upd
 import { IHash } from "../../utils/hashing";
 import { Left, Right } from "../../utils/either";
 import { UserService } from "../user.service";
-import { ErrorService } from "../error/error.service";
 import { NotificationService } from "../../notification.service";
+import { ProfileErrorService } from "../error/ProfileError.service";
+import { AuthenticationErrorService } from "../error/AuthenticationError.service";
 
 @Injectable()
 export class UpdateEmailUseCase implements IUpdateEmailUseCase {
@@ -17,11 +18,11 @@ export class UpdateEmailUseCase implements IUpdateEmailUseCase {
   async execute(args: UpdateEmailArgs): Promise<UpdateEmailResult> {
     const existingUser = await this.userService.getUserById(args.userId);
     if (!existingUser) 
-      return Left.create(ErrorService.userNotFound());  
+      return Left.create(ProfileErrorService.userNotFound());  
 
     const isValidPassword = await this.hashService.compare(args.userPassword, existingUser.password);
     if (!isValidPassword)  
-      return Left.create(ErrorService.invalidCredentials());  
+      return Left.create(AuthenticationErrorService.invalidCredentials());  
 
     existingUser.email = args.newEmail;
     existingUser.updatedAt = new Date();

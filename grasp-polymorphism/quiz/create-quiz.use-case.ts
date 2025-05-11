@@ -3,6 +3,7 @@ import { BaseCreateEntity } from "../base-create-entity.use-case";
 import { Quiz } from "../quiz/quiz.domain";
 import { CreateQuizArgs, CreateQuizResult } from "../quiz/i-create-quiz-use-case";
 import { TEntity } from "../utils/entity";
+import { EntityFactory } from "../entity-factory";
 
 @Injectable()
 export class CreateQuizUseCase extends BaseCreateEntity<
@@ -18,15 +19,8 @@ export class CreateQuizUseCase extends BaseCreateEntity<
     return "Quiz created successfully"; // Correction du message
   }
 
-  protected buildEntity(args: CreateQuizArgs, quizId: string, createdAt: Date): Quiz {
-    return new Quiz(
-      quizId,
-      args.slug,
-      [{ content: args.label, language: args.defaultLanguage }],
-      args.metaTags.map(tag => [{ content: tag, language: args.defaultLanguage }]),
-      0, // questionsCount par défaut
-      0, // totalTime par défaut
-      args.defaultLanguage,
-    );
+  protected buildEntity(args: CreateQuizArgs, id: string): Quiz {
+       return EntityFactory.create(this.getEntityType(), id, args);
+   
   }
 }

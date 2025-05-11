@@ -4,7 +4,7 @@ import { BaseCreateEntity } from "../base-create-entity.use-case"
 import { SuperSkill } from "../super_skill/super-skill.domain"
 import { CreateSuperSkillArgs, CreateSuperSkillResult } from "../super_skill/i-create-super-skill-use-case"
 import { TEntity } from "../utils/entity"
-import { defaultSuperSkillDifficulty, defaultSuperSkillScore } from "../utils/constants"
+import { EntityFactory } from "../entity-factory"
 
 
 @Injectable()
@@ -23,18 +23,8 @@ export class CreateSuperSkillUseCase extends BaseCreateEntity<
 
   protected buildEntity(
     args: CreateSuperSkillArgs,
-    superSkillId: string,
+    id: string,
   ): SuperSkill {
-    return new SuperSkill(
-      superSkillId,
-      args.slug,
-      [{ content: args.label, language: args.defaultLanguage }],
-      [{ content: args.description, language: args.defaultLanguage }],
-      [{ content: args.contentFileURL, language: args.defaultLanguage }],
-      args.metaTags.map(tag => [{ content: tag, language: args.defaultLanguage }]),
-      args.defaultLanguage,
-      args.difficulty ?? defaultSuperSkillDifficulty,
-      args.score ?? defaultSuperSkillScore,
-    );
+       return EntityFactory.create(this.getEntityType(), id, args);
   }
 }

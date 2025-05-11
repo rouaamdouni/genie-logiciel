@@ -1,10 +1,9 @@
-// create-checkpoint.use-case.ts
 import { Injectable } from "@nestjs/common";
 import { BaseCreateEntity } from "../base-create-entity.use-case";
 import { Checkpoint } from "./checkpoint.domain";
 import { CreateCheckpointArgs, CreateCheckpointResult } from "../checkpoint/i-create-checkpoint-use-case";
 import { TEntity } from "../utils/entity";
-import { defaultCheckpointDifficulty, defaultCheckpointScore } from "../utils/constants";
+import { EntityFactory } from "../entity-factory";
 
 @Injectable()
 export class CreateCheckpointUseCase extends BaseCreateEntity<
@@ -20,19 +19,7 @@ export class CreateCheckpointUseCase extends BaseCreateEntity<
     return "Checkpoint created successfully";
   }
 
-  protected buildEntity(
-    args: CreateCheckpointArgs, 
-    checkpointId: string, 
-  ): Checkpoint {
-    return new Checkpoint(
-      checkpointId,
-      args.slug,
-      [{ content: args.label, language: args.defaultLanguage }],
-      [{ content: args.contentFileURL, language: args.defaultLanguage }], // Ajout contentFileURL
-      args.metaTags.map(tag => [{ content: tag, language: args.defaultLanguage }]),
-      args.defaultLanguage,
-      args.score ?? defaultCheckpointScore,
-      args.difficulty ?? defaultCheckpointDifficulty,
-    );
+  protected buildEntity(args: CreateCheckpointArgs, id: string): Checkpoint {
+    return EntityFactory.create(this.getEntityType(), id, args);
   }
 }

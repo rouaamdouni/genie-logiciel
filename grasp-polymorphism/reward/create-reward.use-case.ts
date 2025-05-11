@@ -4,7 +4,7 @@ import { BaseCreateEntity } from "../base-create-entity.use-case";
 import { Reward } from "../reward/reward.domain";
 import { CreateRewardArgs, CreateRewardResult } from "../reward/i-create-reward-use-case";
 import { TEntity } from "../utils/entity";
-import { defaultRewardDifficulty, defaultRewardScore } from "../utils/constants";
+import { EntityFactory } from "../entity-factory";
 
 @Injectable()
 export class CreateRewardUseCase extends BaseCreateEntity<
@@ -22,17 +22,9 @@ export class CreateRewardUseCase extends BaseCreateEntity<
 
   protected buildEntity(
     args: CreateRewardArgs, 
-    rewardId: string,
+    id: string,
   ): Reward {
-    return new Reward(
-      rewardId,
-      args.slug,
-      [{ content: args.label, language: args.defaultLanguage }],
-      [{ content: args.contentFileURL, language: args.defaultLanguage }],
-      args.metaTags.map(tag => [{ content: tag, language: args.defaultLanguage }]),
-      args.defaultLanguage,
-      args.score ?? defaultRewardScore,
-      args.difficulty ?? defaultRewardDifficulty,
-    );
+        return EntityFactory.create(this.getEntityType(), id, args);
+    
   }
 }
